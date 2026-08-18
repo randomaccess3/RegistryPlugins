@@ -56,17 +56,21 @@ namespace RegistryPlugin._7_ZipHistory
                 {
                     var arcs = Encoding.Unicode.GetString(arcHist.ValueDataRaw).Split('\0');
 
+                    var index = 0;
+
                     foreach (var arc in arcs)
                     {
                         if (arc.Trim().Length == 0)
                         {
                             continue;
                         }
-                        var v = new ValuesOut(arc);
+
+                        var v = new ValuesOut(index, arc, key.LastWriteTime);
                         v.BatchKeyPath = key.KeyPath;
                         v.BatchValueName = arcHist.ValueName;
 
                         Values.Add(v);
+                        index++;
                     }
                 }
             }
